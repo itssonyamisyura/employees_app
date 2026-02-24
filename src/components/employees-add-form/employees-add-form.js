@@ -1,24 +1,62 @@
+import { Component } from 'react';
 import './employees-add-form.css';
 
-const EmployeesAddForm = () => {
-    return (
-        <div className="app-add-form">
-        <h3>Add a New Employee</h3>
-        <form 
-            className="add-form d-flex">
-             <input type="text"
-                className="form-control new-post-label"
-                placeholder="Enter employee name" />
-            <input type="number"
-                className="form-control new-post-label"
-                placeholder="Enter salary in $" />
+class EmployeesAddForm extends Component{
 
-            <button type="submit"
-                className="btn btn-outline-light">Добавить</button>
+    constructor(props) {
+        super(props);
+        this.state = {
+            name: '',
+            salary: ''
+        }
+    }
 
-        </form>
-     </div>
-    )
+    onValueChange = (e) => {
+        this.setState ({
+            [e.target.name]: e.target.value
+        // [свойство в объект]
+        })
+    }
+
+
+    render () {
+        const {name, salary} = this.state;
+
+        return (
+            <div className="app-add-form">
+            <h3>Add a New Employee</h3>
+            <form 
+                className="add-form d-flex">
+                <input type="text"
+                    className="form-control new-post-label"
+                    placeholder="Enter employee name" 
+                    name="name"
+                    value={name}
+                    onChange={this.onValueChange}/>
+                <input type="number"
+                    className="form-control new-post-label"
+                    placeholder="Enter salary in $" 
+                    name="salary"
+                    value={salary}
+                    onChange={this.onValueChange}/>
+    
+                <button type="submit"
+                    className="btn btn-outline-light">Add</button>
+    
+            </form>
+         </div>
+        )
+    }
 }
 
 export default EmployeesAddForm;
+
+
+
+
+// input - запускает onChange, запускает метод onValueChange, setState изменяет состояние и записывает в     this.state = {
+        // name: '',
+        // salary: ''
+        // }  
+// setState вызывает метод render и если value стоит в том ключе, что мы используем в state -> в value записывается актуальное значение компонента, значение value контролируется реактом и сам элемент input управляемый
+// input typeFile не управляемый
