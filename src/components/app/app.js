@@ -42,39 +42,11 @@ class App extends Component {
         })) //spread создаёт новый массив
     }
 
-    onToggleIncrease = (id) => {
-        // this.setState(({data}) => {
-        //     const index = data.findIndex(elem => elem.id === id);
-
-        //     const old = data[index]; // старый объект
-        //     const newItem = {...old, increase: !old.increase};
-        //     const newArr = [...data.slice(0, index), newItem, ...data.slice(index + 1)]
-
-        //     return {
-        //         data: newArr
-        //     }
-        // })
-
-        //1) return new obj со свойством data: формируем новый массив map
-        //2) когда идет перебор объектов, если совпадают item.id === id - нашли нужный объект, возвращаем новый объект, который содержит сущность {...item, increase: !item.increase} 
-        //3) условие не совпало - return obj
-        //4) получаем массив объектов с измененным значением 
-
+    onToggleProp = (id, prop) => {
         this.setState(({data}) => ({
             data: data.map(item => {
                 if (item.id === id) {
-                    return {...item, increase: !item.increase} 
-                }
-                return item;
-            })
-        }))
-    }
-
-    onToggleRise = (id) => {
-        this.setState(({data}) => ({
-            data: data.map(item => {
-                if (item.id === id) {
-                    return {...item, rise: !item.rise} 
+                    return {...item, [prop]: !item[prop]} 
                 }
                 return item;
             })
@@ -97,8 +69,7 @@ class App extends Component {
                 <EmployeesList 
                     data={this.state.data}
                     onDelete={this.deleteItem}
-                    onToggleIncrease={this.onToggleIncrease}
-                    onToggleRise={this.onToggleRise}/>
+                    onToggleProp={this.onToggleProp}/>
                 <EmployeesAddForm onAdd={this.addItem} />
             </div>
         );
